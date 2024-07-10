@@ -225,12 +225,9 @@ const Dashboard = () => {
                         <TableTr className="bg-white" key={i}>
                             <TableCell>
                                 <Flex gap="xs" align="center">
-                                    <Image
+                                    <Avatar
                                         src={item?.buyer?.avatar}
                                         alt="Avatar"
-                                        width={30}
-                                        height={30}
-                                        className="rounded-full"
                                     />
                                     {item?.buyer?.name}
                                 </Flex>
