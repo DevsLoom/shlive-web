@@ -80,7 +80,8 @@ const Login = () => {
                                 })
                             );
 
-                            router.push("/dashboard");
+                            window.open("/dashboard", "_self");
+                            // router.push("/dashboard");
                         } else {
                             message({
                                 title: `Sorry, You are not permitted to login`,
