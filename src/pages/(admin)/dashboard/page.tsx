@@ -226,13 +226,13 @@ const Dashboard = () => {
                             <TableCell>
                                 <Flex gap="xs" align="center">
                                     <Image
-                                        src={item?.avatar}
+                                        src={item?.buyer?.avatar}
                                         alt="Avatar"
                                         width={30}
                                         height={30}
                                         className="rounded-full"
                                     />
-                                    {item?.name}
+                                    {item?.buyer?.name}
                                 </Flex>
                             </TableCell>
                             <TableCell>{item?.quantity}</TableCell>
