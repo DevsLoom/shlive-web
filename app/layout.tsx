@@ -1,6 +1,7 @@
 import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 import BaseLayout from "./base";
 import "./global.css";
+import { Suspense } from "react";
 
 export const metadata = {
     title: "Welcome to web",
@@ -18,9 +19,11 @@ export default function RootLayout({
                 <ColorSchemeScript />
             </head>
             <body>
-                <MantineProvider>
-                    <BaseLayout>{children}</BaseLayout>
-                </MantineProvider>
+                <Suspense fallback={<p>Loading...</p>}>
+                    <MantineProvider>
+                        <BaseLayout>{children}</BaseLayout>
+                    </MantineProvider>
+                </Suspense>
             </body>
         </html>
     );
