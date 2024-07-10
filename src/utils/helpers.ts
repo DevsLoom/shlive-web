@@ -1,7 +1,7 @@
 import Swal, { SweetAlertIcon } from "sweetalert2";
 
-export const validateError = (data: any) => {
-    const validate: any = {};
+export const validateError = (data: { [key: string]: string[] | string }) => {
+    const validate: { [key: string]: { text: string; show: boolean } } = {};
     Object.keys(data).forEach((key) => {
         if (Array.isArray(data[key])) {
             validate[key] = { text: data[key][0], show: true };
@@ -55,10 +55,20 @@ export const resCallback = ({
     vErrCb = () => {},
     errCb = () => {},
 }: {
-    data: { message: string } | any;
-    error: { status: string; data: any; message: string } | any;
+    data: {
+        message?: string;
+        data?: unknown;
+        status?: string;
+    } | null;
+    error: {
+        status?: string;
+        data: { [key: string]: string[] | string } | never;
+        message?: string;
+    } | null;
     cb?: () => void;
-    vErrCb?: (value: any) => void;
+    vErrCb?: (value: {
+        [key: string]: { text: string; show: boolean };
+    }) => void;
     errCb?: () => void;
 }) => {
     if (data) {

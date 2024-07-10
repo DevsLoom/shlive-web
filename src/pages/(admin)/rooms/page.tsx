@@ -29,7 +29,7 @@ const Rooms = () => {
         }${params.fields ? `&fields=${params.fields}` : ""}`
     );
 
-    const paramsChangeHandler = (field: string, value: string | any) => {
+    const paramsChangeHandler = (field: string, value: string | unknown) => {
         setParams((prevState) => ({ ...prevState, [field]: value }));
     };
 
