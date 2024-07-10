@@ -70,7 +70,7 @@ const Login = () => {
                     const isExpire = isExpired(token);
 
                     if (!isExpire) {
-                        if (decodedToken.type === "ADMIN") {
+                        if (decodedToken?.type === "ADMIN") {
                             Cookies.set("authToken", token);
                             dispatch(
                                 setCurrentUser({
@@ -138,7 +138,7 @@ const Login = () => {
                 </div>
 
                 <Text className="text-sm text-center">
-                    Don't have an account?{" "}
+                    Don<span>&#x2019</span>t have an account?{" "}
                     <Link
                         href="/register"
                         className="text-blue-500 font-semibold"
