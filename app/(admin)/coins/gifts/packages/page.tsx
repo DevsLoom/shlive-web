@@ -1,5 +1,10 @@
 "use client";
 
+import CoinGiftPackageForm from "@/components/Coins/Form/CoinGiftPackage";
+import {
+    useDeleteCoinGiftPackageMutation,
+    useFetchCoinGiftPackagesQuery,
+} from "@/stores/api/coins/giftPackages";
 import { Icon } from "@iconify/react";
 import {
     ActionIcon,
@@ -12,22 +17,17 @@ import {
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { useState } from "react";
-import CoinPackage from "../../../../components/Coins/Form/CoinPackage";
 import ListingTable, {
     TableCell,
-} from "../../../../components/UI/ListingTable";
-import {
-    useDeleteCoinPackageMutation,
-    useFetchCoinPackagesQuery,
-} from "../../../../stores/api/coins/coinPackages";
-import type { TableHeaderType } from "../../../../types/table";
-import { alertMessage, message } from "../../../../utils/helpers";
+} from "../../../../../components/UI/ListingTable";
+import type { TableHeaderType } from "../../../../../types/table";
+import { alertMessage, message } from "../../../../../utils/helpers";
 
-const CoinPackages = () => {
+const CoinGiftPackages = () => {
     const headers: TableHeaderType[] = [
+        { label: "Attachment", align: "left" },
         { label: "Name", align: "left" },
         { label: "Quantity", align: "left" },
-        { label: "Price", align: "left" },
         { label: "Status", align: "left" },
         { label: "Action", align: "center" },
     ];
@@ -42,7 +42,7 @@ const CoinPackages = () => {
     });
 
     const { data, isFetching, isSuccess, isError, error, refetch } =
-        useFetchCoinPackagesQuery(
+        useFetchCoinGiftPackagesQuery(
             `offset=${params.offset}&limit=${params.limit}${
                 params.search ? `&search=${params.search}` : ""
             }${params.fields ? `&fields=${params.fields}` : ""}`
@@ -52,7 +52,7 @@ const CoinPackages = () => {
         setParams((prevState) => ({ ...prevState, [field]: value }));
     };
 
-    const [deleteItem] = useDeleteCoinPackageMutation();
+    const [deleteItem] = useDeleteCoinGiftPackageMutation();
 
     const deleteHandler = (id: string) => {
         alertMessage({
@@ -76,16 +76,16 @@ const CoinPackages = () => {
             <Modal
                 opened={opened}
                 onClose={close}
-                title="Add Coin Package"
+                title="Add Coin Gift Item"
                 centered
             >
-                <CoinPackage close={close} refetch={refetch} />
+                <CoinGiftPackageForm close={close} refetch={refetch} />
             </Modal>
 
             <Flex align="center" justify="space-between" gap="xs">
-                <Title size="sm">Coin Packages</Title>
+                <Title size="sm">Coin Gifts</Title>
                 <Button size="sm" onClick={open}>
-                    Add Package
+                    Add Gift
                 </Button>
             </Flex>
 
@@ -97,9 +97,9 @@ const CoinPackages = () => {
                 found={isSuccess && data?.data?.length > 0}
                 body={data?.data?.map((item, i) => (
                     <TableTr className="bg-white" key={i}>
+                        <TableCell>{item?.attachment || "N/A"}</TableCell>
                         <TableCell>{item?.name}</TableCell>
                         <TableCell>{item?.quantity}</TableCell>
-                        <TableCell>{item?.price}</TableCell>
                         <TableCell className="uppercase">
                             {item?.status}
                         </TableCell>
@@ -131,4 +131,4 @@ const CoinPackages = () => {
     );
 };
 
-export default CoinPackages;
+export default CoinGiftPackages;

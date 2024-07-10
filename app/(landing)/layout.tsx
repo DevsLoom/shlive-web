@@ -1,9 +1,9 @@
-import React from 'react';
+import React from "react";
 
 const LandingLayout: React.FC<{ children: React.ReactNode }> = ({
-  children,
+    children,
 }) => {
-  return <div>LandingLayout {children}</div>;
+    return <div className="w-full h-screen bg-[#c4d5eb] p-10">{children}</div>;
 };
 
 export default LandingLayout;
