@@ -48,11 +48,12 @@ const AdminLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
                 <Flex h="100%" justify="space-between" gap="xs">
                     <Center className="w-[220px]">
                         <Link href="/dashboard" className="w-full h-full">
-                            <Image
+                            {/* <Image
                                 src={Images.Logo}
                                 alt="Logo"
                                 className="w-full h-full"
-                            />
+                            /> */}
+                            SH Live
                         </Link>
                     </Center>
 
