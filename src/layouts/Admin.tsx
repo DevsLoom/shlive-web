@@ -142,6 +142,7 @@ const AdminLayout: React.FC = () => {
                                     label={cItem.label}
                                     component={Link}
                                     leftSection={cItem.icon}
+                                    onClick={() => toggle()}
                                 />
                             ))}
                         </NavLink>
@@ -152,6 +153,7 @@ const AdminLayout: React.FC = () => {
                             label={item.label}
                             component={Link}
                             leftSection={item.icon}
+                            onClick={() => toggle()}
                         />
                     )
                 )}
