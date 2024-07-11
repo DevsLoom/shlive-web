@@ -21,7 +21,11 @@ import {
     useFetchSaleCoinsQuery,
 } from "../../../../stores/api/coins/coinSales";
 import { TableHeaderType } from "../../../../types/table";
-import { alertMessage, message } from "../../../../utils/helpers";
+import {
+    alertMessage,
+    imageUrlBuilder,
+    message,
+} from "../../../../utils/helpers";
 
 const SalesCoin = () => {
     const headers: TableHeaderType[] = [
@@ -102,7 +106,7 @@ const SalesCoin = () => {
                         <TableCell>
                             <Flex gap="xs" align="center">
                                 <Avatar
-                                    src={item?.buyer?.avatar}
+                                    src={imageUrlBuilder(item?.buyer?.avatar)}
                                     alt="Avatar"
                                 />
                                 {item?.buyer?.name}

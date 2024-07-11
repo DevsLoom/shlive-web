@@ -5,6 +5,7 @@ import { useState } from "react";
 import ListingTable, { TableCell } from "../../../components/UI/ListingTable";
 import { useFetchRoomsQuery } from "../../../stores/api/rooms";
 import { TableHeaderType } from "../../../types/table";
+import { imageUrlBuilder } from "../../../utils/helpers";
 
 const Rooms = () => {
     const headers: TableHeaderType[] = [
@@ -49,7 +50,10 @@ const Rooms = () => {
                     <TableTr className="bg-white" key={i}>
                         <TableCell>
                             <Flex gap="xs" align="center">
-                                <Avatar src={item?.user?.avatar} alt="Avatar" />
+                                <Avatar
+                                    src={imageUrlBuilder(item?.user?.avatar)}
+                                    alt="Avatar"
+                                />
                                 {item?.user?.name}
                             </Flex>
                         </TableCell>

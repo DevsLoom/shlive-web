@@ -158,7 +158,7 @@ const CoinSales: React.FC<IProps> = ({
                 data={CoinSaleStatuses}
                 value={form.status}
                 error={errors.status.text}
-                onChange={(value) => fieldChangeHandler("packageId", value)}
+                onChange={(value) => fieldChangeHandler("status", value)}
             />
             <Button
                 size="sm"
