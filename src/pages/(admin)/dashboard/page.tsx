@@ -1,5 +1,5 @@
 import { Icon } from "@iconify/react";
-import { Avatar, Card, Flex, Image, TableTr, Text, Title } from "@mantine/core";
+import { Avatar, Card, Flex, TableTr, Text, Title } from "@mantine/core";
 import moment from "moment";
 import { useSelector } from "react-redux";
 import ListingTable, { TableCell } from "../../../components/UI/ListingTable";
@@ -65,7 +65,7 @@ const Dashboard = () => {
     } = useFetchLatestCoinSalesReportsQuery(``);
 
     return (
-        <div className="grid grid-cols-2 gap-5">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
             {/* Summary */}
             <div className="col-span-full">
                 <Title size="sm" mb="lg">
@@ -79,7 +79,7 @@ const Dashboard = () => {
                         error={error}
                     />
                 ) : (
-                    <div className="grid grid-cols-1 lg:grid-cols-6 gap-4">
+                    <div className="grid grid-cols-2 lg:grid-cols-6 gap-4">
                         <Card className="bg-red-200">
                             <div className="flex flex-col gap-1">
                                 <Icon icon="clarity:users-line" fontSize={25} />

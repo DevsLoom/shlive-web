@@ -2,13 +2,16 @@ import { Icon } from "@iconify/react";
 import {
     AppShell,
     Avatar,
+    Burger,
     Button,
     Center,
     Flex,
     Image,
     NavLink,
     Popover,
+    Title,
 } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Outlet, useNavigate } from "react-router-dom";
@@ -23,6 +26,8 @@ const AdminLayout: React.FC = () => {
     const { isAuthenticate, currentUser } = useSelector(
         (state: RootState) => state.auth
     );
+
+    const [opened, { toggle }] = useDisclosure();
 
     const logoutHandler = () => {
         dispatch(
@@ -44,19 +49,26 @@ const AdminLayout: React.FC = () => {
             navbar={{
                 width: 230,
                 breakpoint: "sm",
-                // collapsed: { mobile: !opened },
+                collapsed: { mobile: !opened },
             }}
             padding="md"
         >
             <AppShell.Header p="xs">
                 <Flex h="100%" justify="space-between" gap="xs">
-                    <Center>
+                    <Flex align="center" gap="xs" w={220}>
                         <Image
                             src={Images.Logo}
                             alt="Logo"
-                            className="w-[220px] h-full"
+                            className="w-full h-full"
                         />
-                    </Center>
+                        <Title size="lg">SH Live</Title>
+                        <Burger
+                            opened={opened}
+                            onClick={toggle}
+                            hiddenFrom="sm"
+                            size="sm"
+                        />
+                    </Flex>
 
                     <Center>
                         <Flex gap="xs">
