@@ -4,6 +4,7 @@ import Validator from "Validator";
 import { useCreateCoinGiftPackageMutation } from "../../../stores/api/coins/giftPackages";
 import { IProps } from "../../../types/global";
 import { resCallback, validateError } from "../../../utils/helpers";
+import FileUploader from "../../UI/FileUploader";
 import TextField from "../../UI/TextField";
 
 const CoinGiftPackageForm: React.FC<IProps> = ({
@@ -71,6 +72,12 @@ const CoinGiftPackageForm: React.FC<IProps> = ({
 
     return (
         <form onSubmit={submitHandler} className="flex flex-col gap-3">
+            <FileUploader
+                file={form.attachment}
+                uploadHandler={(value) =>
+                    fieldChangeHandler("attachment", value)
+                }
+            />
             <TextField
                 label="Name"
                 value={form.name}

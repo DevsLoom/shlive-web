@@ -19,7 +19,7 @@ import {
     useFetchUsersQuery,
 } from "../../../stores/api/users";
 import type { TableHeaderType } from "../../../types/table";
-import { alertMessage, message } from "../../../utils/helpers";
+import { alertMessage, imageUrlBuilder, message } from "../../../utils/helpers";
 
 const Users = () => {
     const [searchParams] = useSearchParams();
@@ -39,7 +39,7 @@ const Users = () => {
         offset: 1,
         limit: 10,
         search: "",
-        fields: "name,email,phone,gender",
+        fields: "",
     });
 
     const { data, isFetching, isSuccess, isError, error, refetch } =
@@ -111,7 +111,10 @@ const Users = () => {
                     <TableTr className="bg-white" key={i}>
                         <TableCell>
                             <Flex gap="xs" align="center">
-                                <Avatar src={item?.avatar} alt="Avatar" />
+                                <Avatar
+                                    src={imageUrlBuilder(item?.avatar)}
+                                    alt="Avatar"
+                                />
                                 {item?.name}
                             </Flex>
                         </TableCell>

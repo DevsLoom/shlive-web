@@ -4,6 +4,7 @@ import {
     Button,
     Flex,
     Group,
+    Image,
     Modal,
     TableTr,
     Title,
@@ -95,7 +96,13 @@ const CoinGiftPackages = () => {
                 found={isSuccess && data?.data?.length > 0}
                 body={data?.data?.map((item, i) => (
                     <TableTr className="bg-white" key={i}>
-                        <TableCell>{item?.attachment || "N/A"}</TableCell>
+                        <TableCell>
+                            <Image
+                                src={item?.attachment}
+                                alt={item?.name}
+                                classNames={{ root: "w-12 h-12" }}
+                            />
+                        </TableCell>
                         <TableCell>{item?.name}</TableCell>
                         <TableCell>{item?.quantity}</TableCell>
                         <TableCell className="uppercase">

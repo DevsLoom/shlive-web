@@ -19,6 +19,7 @@ import { AdminSidebarLinks } from "../constants/links";
 import { Images } from "../constants/themeData";
 import { RootState } from "../stores";
 import { logout } from "../stores/reducers/auth";
+import { imageUrlBuilder } from "../utils/helpers";
 
 const AdminLayout: React.FC = () => {
     const navigate = useNavigate();
@@ -84,7 +85,9 @@ const AdminLayout: React.FC = () => {
                                         variant="light"
                                         leftSection={
                                             <Avatar
-                                                src={currentUser?.avatar}
+                                                src={imageUrlBuilder(
+                                                    currentUser?.avatar
+                                                )}
                                                 alt="Avatar"
                                             />
                                         }

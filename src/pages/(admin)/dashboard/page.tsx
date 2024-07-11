@@ -12,6 +12,7 @@ import {
     useFetchSummaryReportsQuery,
 } from "../../../stores/api/reports";
 import { TableHeaderType } from "../../../types/table";
+import { imageUrlBuilder } from "../../../utils/helpers";
 
 const Dashboard = () => {
     const { currentUser } = useSelector((state: RootState) => state.auth);
@@ -158,7 +159,9 @@ const Dashboard = () => {
                             <TableCell>
                                 <Flex gap="xs" align="center">
                                     <Avatar
-                                        src={item?.user?.avatar}
+                                        src={imageUrlBuilder(
+                                            item?.user?.avatar
+                                        )}
                                         alt="Avatar"
                                     />
                                     {item?.user?.name}
@@ -198,7 +201,10 @@ const Dashboard = () => {
                         <TableTr className="bg-white" key={i}>
                             <TableCell>
                                 <Flex gap="xs" align="center">
-                                    <Avatar src={item?.avatar} alt="Avatar" />
+                                    <Avatar
+                                        src={imageUrlBuilder(item?.avatar)}
+                                        alt="Avatar"
+                                    />
                                     {item?.name}
                                 </Flex>
                             </TableCell>
@@ -226,7 +232,9 @@ const Dashboard = () => {
                             <TableCell>
                                 <Flex gap="xs" align="center">
                                     <Avatar
-                                        src={item?.buyer?.avatar}
+                                        src={imageUrlBuilder(
+                                            item?.buyer?.avatar
+                                        )}
                                         alt="Avatar"
                                     />
                                     {item?.buyer?.name}
