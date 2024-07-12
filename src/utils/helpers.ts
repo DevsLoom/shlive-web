@@ -101,9 +101,21 @@ export const selectGenerator = (
     }));
 };
 
-export const imageUrlBuilder = (value?: { host: string; path: string }) => {
-    if (value?.host && value?.path) {
-        return value?.host + value?.path;
+// export const imageUrlBuilder = (value?: { host: string; path: string }) => {
+//     if (value?.host && value?.path) {
+//         return value?.host + value?.path;
+//     }
+//     return null;
+// };
+
+export const imageUrlBuilder = (
+    value?: string | string[],
+    defaultImage?: string
+) => {
+    if (value && Array.isArray(value)) {
+        return value[0];
+    } else if (value) {
+        return value;
     }
-    return null;
+    return defaultImage;
 };

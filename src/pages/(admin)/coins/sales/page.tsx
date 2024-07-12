@@ -26,6 +26,7 @@ import {
     imageUrlBuilder,
     message,
 } from "../../../../utils/helpers";
+import { Images } from "../../../../constants/themeData";
 
 const SalesCoin = () => {
     const headers: TableHeaderType[] = [
@@ -106,7 +107,10 @@ const SalesCoin = () => {
                         <TableCell>
                             <Flex gap="xs" align="center">
                                 <Avatar
-                                    src={imageUrlBuilder(item?.buyer?.avatar)}
+                                    src={imageUrlBuilder(
+                                        item?.buyer?.avatar,
+                                        Images.DefaultImage
+                                    )}
                                     alt="Avatar"
                                 />
                                 {item?.buyer?.name}
@@ -122,7 +126,9 @@ const SalesCoin = () => {
                                   )
                                 : ""}
                         </TableCell>
-                        <TableCell>{item?.status}</TableCell>
+                        <TableCell className="capitalize">
+                            {item?.status}
+                        </TableCell>
                         <TableCell>
                             <Group gap="xs" justify="center">
                                 <ActionIcon color="blue" variant="outline">

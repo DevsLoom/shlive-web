@@ -20,6 +20,7 @@ import {
 } from "../../../stores/api/users";
 import type { TableHeaderType } from "../../../types/table";
 import { alertMessage, imageUrlBuilder, message } from "../../../utils/helpers";
+import { Images } from "../../../constants/themeData";
 
 const Users = () => {
     const [searchParams] = useSearchParams();
@@ -112,7 +113,10 @@ const Users = () => {
                         <TableCell>
                             <Flex gap="xs" align="center">
                                 <Avatar
-                                    src={imageUrlBuilder(item?.avatar)}
+                                    src={imageUrlBuilder(
+                                        item?.avatar,
+                                        Images.DefaultImage
+                                    )}
                                     alt="Avatar"
                                 />
                                 {item?.name}

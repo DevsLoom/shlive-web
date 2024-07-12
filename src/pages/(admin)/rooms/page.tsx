@@ -6,6 +6,7 @@ import ListingTable, { TableCell } from "../../../components/UI/ListingTable";
 import { useFetchRoomsQuery } from "../../../stores/api/rooms";
 import { TableHeaderType } from "../../../types/table";
 import { imageUrlBuilder } from "../../../utils/helpers";
+import { Images } from "../../../constants/themeData";
 
 const Rooms = () => {
     const headers: TableHeaderType[] = [
@@ -51,16 +52,17 @@ const Rooms = () => {
                         <TableCell>
                             <Flex gap="xs" align="center">
                                 <Avatar
-                                    src={imageUrlBuilder(item?.user?.avatar)}
+                                    src={imageUrlBuilder(
+                                        item?.user?.avatar,
+                                        Images.DefaultImage
+                                    )}
                                     alt="Avatar"
                                 />
                                 {item?.user?.name}
                             </Flex>
                         </TableCell>
-                        <TableCell className="uppercase">
-                            {item?.type}
-                        </TableCell>
-                        <TableCell className="uppercase">
+                        <TableCell>{item?.type}</TableCell>
+                        <TableCell className="capitalize">
                             {item.status}
                         </TableCell>
                         <TableCell>

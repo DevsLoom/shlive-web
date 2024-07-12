@@ -86,7 +86,8 @@ const AdminLayout: React.FC = () => {
                                         leftSection={
                                             <Avatar
                                                 src={imageUrlBuilder(
-                                                    currentUser?.avatar
+                                                    currentUser?.avatar,
+                                                    Images.DefaultImage
                                                 )}
                                                 alt="Avatar"
                                             />

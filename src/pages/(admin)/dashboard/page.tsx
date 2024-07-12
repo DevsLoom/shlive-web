@@ -13,6 +13,7 @@ import {
 } from "../../../stores/api/reports";
 import { TableHeaderType } from "../../../types/table";
 import { imageUrlBuilder } from "../../../utils/helpers";
+import { Images } from "../../../constants/themeData";
 
 const Dashboard = () => {
     const { currentUser } = useSelector((state: RootState) => state.auth);
@@ -160,7 +161,8 @@ const Dashboard = () => {
                                 <Flex gap="xs" align="center">
                                     <Avatar
                                         src={imageUrlBuilder(
-                                            item?.user?.avatar
+                                            item?.user?.avatar,
+                                            Images.DefaultImage
                                         )}
                                         alt="Avatar"
                                     />
@@ -202,7 +204,10 @@ const Dashboard = () => {
                             <TableCell>
                                 <Flex gap="xs" align="center">
                                     <Avatar
-                                        src={imageUrlBuilder(item?.avatar)}
+                                        src={imageUrlBuilder(
+                                            item?.avatar,
+                                            Images.DefaultImage
+                                        )}
                                         alt="Avatar"
                                     />
                                     {item?.name}
@@ -233,7 +238,8 @@ const Dashboard = () => {
                                 <Flex gap="xs" align="center">
                                     <Avatar
                                         src={imageUrlBuilder(
-                                            item?.buyer?.avatar
+                                            item?.buyer?.avatar,
+                                            Images.DefaultImage
                                         )}
                                         alt="Avatar"
                                     />
