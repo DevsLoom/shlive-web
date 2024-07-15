@@ -1,5 +1,6 @@
 import {
     Pagination,
+    ScrollArea,
     Table,
     TableTbody,
     TableTd,
@@ -45,7 +46,7 @@ const ListingTable: React.FC<TableType> = ({
     }
 
     return (
-        <>
+        <ScrollArea offsetScrollbars>
             <Table
                 classNames={{ table: "border-separate border-spacing-y-2" }}
                 stickyHeader
@@ -55,7 +56,12 @@ const ListingTable: React.FC<TableType> = ({
                     {headers.length > 0 && (
                         <TableTr className="bg-white">
                             {headers.map((item, i) => (
-                                <TableCell key={i} align={item.align} fw={600}>
+                                <TableCell
+                                    key={i}
+                                    align={item.align}
+                                    fw={600}
+                                    miw={item.w || 200}
+                                >
                                     {item.label}
                                 </TableCell>
                             ))}
@@ -83,7 +89,7 @@ const ListingTable: React.FC<TableType> = ({
                     />
                 </div>
             )}
-        </>
+        </ScrollArea>
     );
 };
 

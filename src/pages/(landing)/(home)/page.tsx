@@ -6,7 +6,7 @@ const Home = () => {
         <div className="w-full h-full bg-[#243030] p-4">
             <div className="flex flex-col justify-center items-center h-full">
                 <Text
-                    className="text-6xl text-white text-center font-semibold uppercase"
+                    className="text-4xl lg:text-6xl text-white text-center font-semibold uppercase"
                     mb="lg"
                 >
                     Under <br /> Construction

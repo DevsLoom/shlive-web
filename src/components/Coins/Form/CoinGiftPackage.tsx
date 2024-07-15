@@ -2,17 +2,12 @@ import { Button } from "@mantine/core";
 import React, { useState } from "react";
 import Validator from "Validator";
 import { useCreateCoinGiftPackageMutation } from "../../../stores/api/coins/giftPackages";
+import { IProps } from "../../../types/global";
 import { resCallback, validateError } from "../../../utils/helpers";
+import FileUploader from "../../UI/FileUploader";
 import TextField from "../../UI/TextField";
 
-type IProps = {
-    payload?: object | null;
-    close?: () => void;
-    refetch?: () => void;
-};
-
 const CoinGiftPackageForm: React.FC<IProps> = ({
-    payload,
     close = () => {},
     refetch = () => {},
 }) => {
@@ -31,7 +26,7 @@ const CoinGiftPackageForm: React.FC<IProps> = ({
         status: { text: "", show: false },
     });
 
-    const fieldChangeHandler = (field: string, value: string | any) => {
+    const fieldChangeHandler = (field: string, value: string | unknown) => {
         setErrors((prevState) => ({
             ...prevState,
             [field]: { text: "", show: false },
@@ -77,6 +72,12 @@ const CoinGiftPackageForm: React.FC<IProps> = ({
 
     return (
         <form onSubmit={submitHandler} className="flex flex-col gap-3">
+            <FileUploader
+                file={form.attachment}
+                uploadHandler={(value) =>
+                    fieldChangeHandler("attachment", value)
+                }
+            />
             <TextField
                 label="Name"
                 value={form.name}

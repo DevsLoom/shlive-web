@@ -2,13 +2,16 @@ import { Icon } from "@iconify/react";
 import {
     AppShell,
     Avatar,
+    Burger,
     Button,
     Center,
     Flex,
     Image,
     NavLink,
     Popover,
+    Title,
 } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Outlet, useNavigate } from "react-router-dom";
@@ -16,6 +19,7 @@ import { AdminSidebarLinks } from "../constants/links";
 import { Images } from "../constants/themeData";
 import { RootState } from "../stores";
 import { logout } from "../stores/reducers/auth";
+import { imageUrlBuilder } from "../utils/helpers";
 
 const AdminLayout: React.FC = () => {
     const navigate = useNavigate();
@@ -23,6 +27,8 @@ const AdminLayout: React.FC = () => {
     const { isAuthenticate, currentUser } = useSelector(
         (state: RootState) => state.auth
     );
+
+    const [opened, { toggle }] = useDisclosure();
 
     const logoutHandler = () => {
         dispatch(
@@ -44,19 +50,26 @@ const AdminLayout: React.FC = () => {
             navbar={{
                 width: 230,
                 breakpoint: "sm",
-                // collapsed: { mobile: !opened },
+                collapsed: { mobile: !opened },
             }}
             padding="md"
         >
             <AppShell.Header p="xs">
                 <Flex h="100%" justify="space-between" gap="xs">
-                    <Center>
+                    <Flex align="center" gap="xs" w={220}>
                         <Image
                             src={Images.Logo}
                             alt="Logo"
-                            className="w-[220px] h-full"
+                            className="w-full h-full"
                         />
-                    </Center>
+                        <Title size="lg">SH Live</Title>
+                        <Burger
+                            opened={opened}
+                            onClick={toggle}
+                            hiddenFrom="sm"
+                            size="sm"
+                        />
+                    </Flex>
 
                     <Center>
                         <Flex gap="xs">
@@ -72,7 +85,10 @@ const AdminLayout: React.FC = () => {
                                         variant="light"
                                         leftSection={
                                             <Avatar
-                                                src={currentUser?.avatar}
+                                                src={imageUrlBuilder(
+                                                    currentUser?.avatar,
+                                                    Images.DefaultImage
+                                                )}
                                                 alt="Avatar"
                                             />
                                         }
@@ -130,6 +146,7 @@ const AdminLayout: React.FC = () => {
                                     label={cItem.label}
                                     component={Link}
                                     leftSection={cItem.icon}
+                                    onClick={() => toggle()}
                                 />
                             ))}
                         </NavLink>
@@ -140,6 +157,7 @@ const AdminLayout: React.FC = () => {
                             label={item.label}
                             component={Link}
                             leftSection={item.icon}
+                            onClick={() => toggle()}
                         />
                     )
                 )}

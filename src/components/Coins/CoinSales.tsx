@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useFetchCoinPackagesQuery } from "../../stores/api/coins/coinPackages";
 import { useCreateSaleCoinMutation } from "../../stores/api/coins/coinSales";
 import { useFetchUsersQuery } from "../../stores/api/users";
+import { IProps } from "../../types/global";
 import {
     resCallback,
     selectGenerator,
@@ -12,14 +13,7 @@ import {
 import SelectBox from "../UI/SelectBox";
 import TextField from "../UI/TextField";
 
-type IProps = {
-    payload?: object | null;
-    close?: () => void;
-    refetch?: () => void;
-};
-
 const CoinSales: React.FC<IProps> = ({
-    payload,
     close = () => {},
     refetch = () => {},
 }) => {
@@ -45,7 +39,7 @@ const CoinSales: React.FC<IProps> = ({
         price: { text: "", show: false },
     });
 
-    const fieldChangeHandler = (field: string, value: string | any) => {
+    const fieldChangeHandler = (field: string, value: string | unknown) => {
         setErrors((prevState) => ({
             ...prevState,
             [field]: { text: "", show: false },

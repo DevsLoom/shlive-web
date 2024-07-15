@@ -19,7 +19,8 @@ import {
     useFetchUsersQuery,
 } from "../../../stores/api/users";
 import type { TableHeaderType } from "../../../types/table";
-import { alertMessage, message } from "../../../utils/helpers";
+import { alertMessage, imageUrlBuilder, message } from "../../../utils/helpers";
+import { Images } from "../../../constants/themeData";
 
 const Users = () => {
     const [searchParams] = useSearchParams();
@@ -39,7 +40,7 @@ const Users = () => {
         offset: 1,
         limit: 10,
         search: "",
-        fields: "name,email,phone,gender",
+        fields: "",
     });
 
     const { data, isFetching, isSuccess, isError, error, refetch } =
@@ -49,7 +50,7 @@ const Users = () => {
             }${params.fields ? `&fields=${params.fields}` : ""}&type=${type}`
         );
 
-    const paramsChangeHandler = (field: string, value: string | any) => {
+    const paramsChangeHandler = (field: string, value: string | unknown) => {
         setParams((prevState) => ({ ...prevState, [field]: value }));
     };
 
@@ -111,7 +112,13 @@ const Users = () => {
                     <TableTr className="bg-white" key={i}>
                         <TableCell>
                             <Flex gap="xs" align="center">
-                                <Avatar src={item?.avatar} alt="Avatar" />
+                                <Avatar
+                                    src={imageUrlBuilder(
+                                        item?.avatar,
+                                        Images.DefaultImage
+                                    )}
+                                    alt="Avatar"
+                                />
                                 {item?.name}
                             </Flex>
                         </TableCell>

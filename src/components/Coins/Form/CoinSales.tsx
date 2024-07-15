@@ -5,6 +5,7 @@ import { CoinSaleStatuses } from "../../../constants/selects";
 import { useFetchCoinPackagesQuery } from "../../../stores/api/coins/coinPackages";
 import { useCreateSaleCoinMutation } from "../../../stores/api/coins/coinSales";
 import { useFetchUsersQuery } from "../../../stores/api/users";
+import { IProps } from "../../../types/global";
 import {
     resCallback,
     selectGenerator,
@@ -13,14 +14,7 @@ import {
 import SelectBox from "../../UI/SelectBox";
 import TextField from "../../UI/TextField";
 
-type IProps = {
-    payload?: object | null;
-    close?: () => void;
-    refetch?: () => void;
-};
-
 const CoinSales: React.FC<IProps> = ({
-    payload,
     close = () => {},
     refetch = () => {},
 }) => {
@@ -50,7 +44,7 @@ const CoinSales: React.FC<IProps> = ({
         status: { text: "", show: false },
     });
 
-    const fieldChangeHandler = (field: string, value: string | any) => {
+    const fieldChangeHandler = (field: string, value: string | unknown) => {
         setErrors((prevState) => ({
             ...prevState,
             [field]: { text: "", show: false },
@@ -164,7 +158,7 @@ const CoinSales: React.FC<IProps> = ({
                 data={CoinSaleStatuses}
                 value={form.status}
                 error={errors.status.text}
-                onChange={(value) => fieldChangeHandler("packageId", value)}
+                onChange={(value) => fieldChangeHandler("status", value)}
             />
             <Button
                 size="sm"

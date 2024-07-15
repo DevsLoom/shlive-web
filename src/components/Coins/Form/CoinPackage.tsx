@@ -2,17 +2,11 @@ import { Button } from "@mantine/core";
 import React, { useState } from "react";
 import Validator from "Validator";
 import { useCreateCoinPackageMutation } from "../../../stores/api/coins/coinPackages";
+import { IProps } from "../../../types/global";
 import { resCallback, validateError } from "../../../utils/helpers";
 import TextField from "../../UI/TextField";
 
-type IProps = {
-    payload?: object | null;
-    close?: () => void;
-    refetch?: () => void;
-};
-
 const CoinPackage: React.FC<IProps> = ({
-    payload,
     close = () => {},
     refetch = () => {},
 }) => {
@@ -31,7 +25,7 @@ const CoinPackage: React.FC<IProps> = ({
         status: { text: "", show: false },
     });
 
-    const fieldChangeHandler = (field: string, value: string | any) => {
+    const fieldChangeHandler = (field: string, value: string | unknown) => {
         setErrors((prevState) => ({
             ...prevState,
             [field]: { text: "", show: false },

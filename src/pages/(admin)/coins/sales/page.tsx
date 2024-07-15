@@ -21,7 +21,12 @@ import {
     useFetchSaleCoinsQuery,
 } from "../../../../stores/api/coins/coinSales";
 import { TableHeaderType } from "../../../../types/table";
-import { alertMessage, message } from "../../../../utils/helpers";
+import {
+    alertMessage,
+    imageUrlBuilder,
+    message,
+} from "../../../../utils/helpers";
+import { Images } from "../../../../constants/themeData";
 
 const SalesCoin = () => {
     const headers: TableHeaderType[] = [
@@ -50,7 +55,7 @@ const SalesCoin = () => {
             }${params.fields ? `&fields=${params.fields}` : ""}`
         );
 
-    const paramsChangeHandler = (field: string, value: string | any) => {
+    const paramsChangeHandler = (field: string, value: string | unknown) => {
         setParams((prevState) => ({ ...prevState, [field]: value }));
     };
 
@@ -102,7 +107,10 @@ const SalesCoin = () => {
                         <TableCell>
                             <Flex gap="xs" align="center">
                                 <Avatar
-                                    src={item?.buyer?.avatar}
+                                    src={imageUrlBuilder(
+                                        item?.buyer?.avatar,
+                                        Images.DefaultImage
+                                    )}
                                     alt="Avatar"
                                 />
                                 {item?.buyer?.name}
@@ -118,7 +126,9 @@ const SalesCoin = () => {
                                   )
                                 : ""}
                         </TableCell>
-                        <TableCell>{item?.status}</TableCell>
+                        <TableCell className="capitalize">
+                            {item?.status}
+                        </TableCell>
                         <TableCell>
                             <Group gap="xs" justify="center">
                                 <ActionIcon color="blue" variant="outline">

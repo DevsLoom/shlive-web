@@ -8,7 +8,6 @@ import SecretTextField from "../../UI/SecretTextField";
 import TextField from "../../UI/TextField";
 
 const UserForm: React.FC<IProps & { type?: string | null }> = ({
-    payload,
     close = () => {},
     refetch = () => {},
     type = "USER",
@@ -32,7 +31,7 @@ const UserForm: React.FC<IProps & { type?: string | null }> = ({
         type: { text: "", show: false },
     });
 
-    const fieldChangeHandler = (field: string, value: string | any) => {
+    const fieldChangeHandler = (field: string, value: string | unknown) => {
         setErrors((prevState) => ({
             ...prevState,
             [field]: { text: "", show: false },
