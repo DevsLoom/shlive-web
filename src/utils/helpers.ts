@@ -1,4 +1,4 @@
-import Swal, { SweetAlertIcon } from "sweetalert2";
+import Swal, { SweetAlertIcon, SweetAlertOptions } from "sweetalert2";
 
 export const validateError = (data: { [key: string]: string[] | string }) => {
     const validate: { [key: string]: { text: string; show: boolean } } = {};
@@ -12,7 +12,7 @@ export const validateError = (data: { [key: string]: string[] | string }) => {
     return validate;
 };
 
-export const message = (props: object) => Swal.fire(props);
+export const message = (props: SweetAlertOptions) => Swal.fire(props);
 
 export const alertMessage = ({
     cb = () => {},

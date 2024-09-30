@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { API_URL, defaultHeaders } from "../../constants/urls";
+import { RootState } from "..";
 
 const reports = createApi({
     reducerPath: "reportsApi",
@@ -7,7 +8,8 @@ const reports = createApi({
         baseUrl: API_URL,
         headers: defaultHeaders,
         prepareHeaders: (headers, { getState }) => {
-            const token = getState()?.auth?.token;
+            const state = getState() as RootState;
+            const token = state.auth.token;
             if (token) {
                 headers.set("Authorization", `Bearer ${token}`);
             }
