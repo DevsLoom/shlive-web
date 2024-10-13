@@ -1,67 +1,87 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { useSearchParams } from "react-router-dom";
-import { io } from "socket.io-client";
-import { message } from "../../../../utils/helpers";
-import ReactPlayer from "react-player";
-
-const IO_URL = import.meta.env.VITE_PUBLIC_API_URL;
+import { JitsiMeeting } from "@jitsi/react-sdk";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 const Room = () => {
-    const [params] = useSearchParams();
-    const socket = useMemo(() => io(IO_URL), []);
-    const [localStream, setLocalStream] = useState<MediaStream | null>(null);
-
-    const connection = useCallback(() => {
-        const userId = params.get("userId");
-        socket.emit(
-            "IO_CONNECT",
-            { userId: userId },
-            (res: { status: boolean; message: string }) => {
-                message({
-                    title: res.message,
-                    icon: res.status ? "success" : "error",
-                });
-            }
-        );
-    }, [params, socket]);
-
-    const init = useCallback(() => {
-        socket.on("connect", () => {
-            console.log(
-                `Socket connected: ${socket.connected}, SocketID: ${socket.id}, `
-            );
-
-            connection();
-        });
-    }, [connection, socket]);
-
-    const getUserMedia = useCallback(async () => {
-        const media = await navigator.mediaDevices.getUserMedia({
-            video: true,
-            audio: false,
-        });
-        setLocalStream(media);
-    }, []);
+    const { id } = useParams<{ id: string }>();
+    const [roomName, setRoomName] = useState(id);
 
     useEffect(() => {
-        init();
-    }, [init]);
-
-    useEffect(() => {
-        getUserMedia();
-    }, [getUserMedia]);
+        if (!id) {
+            const name = "HeyMYRoom_" + Math.floor(Math.random() * 999999);
+            setRoomName(name);
+        }
+    }, [id]);
 
     return (
-        <div>
-            {localStream && (
-                <ReactPlayer
-                    url={localStream}
-                    width={200}
-                    height={200}
-                    playing
-                />
-            )}
-        </div>
+        <JitsiMeeting
+            domain={"meet.jit.si"}
+            roomName={roomName ?? ""}
+            configOverwrite={{
+                disableThirdPartyRequests: true,
+                disableLocalVideoFlip: true,
+                backgroundAlpha: 0.5,
+                prejoinPageEnabled: false,
+                startWithAudioMuted: true,
+                startWithVideoMuted: true,
+                // filmStripOnly: false,
+                filmStrip: false,
+                disableModeratorIndicator: true,
+                toolbarButtons: ["hangup", "microphone", "camera"],
+                participantsPane: {
+                    enabled: false,
+                },
+                tileView: {
+                    // disabled: true,
+                    numberOfVisibleTiles: 5,
+                },
+            }}
+            interfaceConfigOverwrite={{
+                VIDEO_LAYOUT_FIT: "nocrop",
+                MOBILE_APP_PROMO: false,
+                TILE_VIEW_MAX_COLUMNS: 4,
+                SHOW_JITSI_WATERMARK: false,
+            }}
+            userInfo={{
+                displayName: "MyName" + Math.floor(Math.random() * 9999),
+                email: `test${Math.random() * 9999}@gmail.com`,
+            }}
+            onApiReady={(externalApi) => {
+                // here you can attach custom event listeners to the Jitsi Meet External API
+                // you can also store it locally to execute commands
+                // console.log({ externalApi });
+                externalApi.addEventListener(
+                    "participantJoined",
+                    async (participant) => {
+                        // console.log({
+                        //     // current: participant,
+                        //     room: await externalApi.getRoomsInfo(),
+                        // });
+                        console.log("myparticiant", participant);
+
+                        externalApi.executeCommand(
+                            "revokeModerator",
+                            participant.id
+                        );
+
+                        externalApi.executeCommand("toggleFilmStrip");
+                        externalApi.executeCommand("mute", true);
+                        externalApi.executeCommand("displayName", "Visitor");
+                    }
+                );
+                externalApi.addEventListener(
+                    "videoConferenceJoined",
+                    (e: any) => {
+                        console.log({
+                            videoJoined: e,
+                        });
+                    }
+                );
+            }}
+            getIFrameRef={(iframeRef) => {
+                iframeRef.style.height = "100vh";
+            }}
+        />
     );
 };
 
