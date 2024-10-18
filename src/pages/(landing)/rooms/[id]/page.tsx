@@ -15,7 +15,7 @@ const Room = () => {
 
     return (
         <JitsiMeeting
-            domain={"meet.jit.si"}
+            domain={"meet.devsloom.co"}
             roomName={roomName ?? ""}
             configOverwrite={{
                 disableThirdPartyRequests: true,
@@ -27,7 +27,17 @@ const Room = () => {
                 // filmStripOnly: false,
                 filmStrip: false,
                 disableModeratorIndicator: true,
-                toolbarButtons: ["hangup", "microphone", "camera"],
+                hideConferenceSubject: true,
+                hideParticipantsStats: true,
+                liveStreaming: {
+                    enabled: true,
+                },
+                toolbarButtons: [
+                    "hangup",
+                    "microphone",
+                    "camera",
+                    "toggle-camera",
+                ],
                 participantsPane: {
                     enabled: false,
                 },
