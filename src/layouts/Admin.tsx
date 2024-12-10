@@ -41,8 +41,12 @@ const AdminLayout: React.FC = () => {
     useEffect(() => {
         if (!isAuthenticate) {
             navigate("/login", { replace: true });
+        } else {
+            if (currentUser && currentUser?.type !== "ADMIN") {
+                navigate("/rooms", { replace: true });
+            }
         }
-    }, [isAuthenticate, navigate]);
+    }, [currentUser, isAuthenticate, navigate]);
 
     return (
         <AppShell

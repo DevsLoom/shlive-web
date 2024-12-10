@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { API_URL, defaultHeaders } from "../../constants/urls";
-import { RootState } from "..";
+import { API_URL, defaultHeaders } from "../../../constants/urls";
+import { RootState } from "../..";
 
 const rooms = createApi({
     reducerPath: "roomsApi",

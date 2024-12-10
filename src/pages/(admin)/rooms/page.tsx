@@ -3,10 +3,10 @@ import { ActionIcon, Avatar, Flex, Group, TableTr, Title } from "@mantine/core";
 import moment from "moment";
 import { useState } from "react";
 import ListingTable, { TableCell } from "../../../components/UI/ListingTable";
-import { useFetchRoomsQuery } from "../../../stores/api/rooms";
+import { Images } from "../../../constants/themeData";
+import { useFetchRoomsQuery } from "../../../stores/api/admin/rooms";
 import { TableHeaderType } from "../../../types/table";
 import { imageUrlBuilder } from "../../../utils/helpers";
-import { Images } from "../../../constants/themeData";
 
 const Rooms = () => {
     const headers: TableHeaderType[] = [

@@ -14,13 +14,13 @@ import { useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import ListingTable, { TableCell } from "../../../components/UI/ListingTable";
 import UserForm from "../../../components/Users/Form/UserForm";
+import { Images } from "../../../constants/themeData";
 import {
     useDeleteUserMutation,
     useFetchUsersQuery,
-} from "../../../stores/api/users";
+} from "../../../stores/api/admin/users";
 import type { TableHeaderType } from "../../../types/table";
 import { alertMessage, imageUrlBuilder, message } from "../../../utils/helpers";
-import { Images } from "../../../constants/themeData";
 
 const Users = () => {
     const [searchParams] = useSearchParams();

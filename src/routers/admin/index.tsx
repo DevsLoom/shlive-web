@@ -8,7 +8,7 @@ import Users from "../../pages/(admin)/users/page";
 
 const adminRouters = [
     {
-        path: "",
+        path: "admin",
         element: <AdminLayout />,
         children: [
             { path: "dashboard", element: <Dashboard /> },

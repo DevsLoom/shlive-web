@@ -19,7 +19,7 @@ import ListingTable, {
 import {
     useDeleteSaleCoinMutation,
     useFetchSaleCoinsQuery,
-} from "../../../../stores/api/coins/coinSales";
+} from "../../../../stores/api/admin/coins/coinSales";
 import { TableHeaderType } from "../../../../types/table";
 import {
     alertMessage,

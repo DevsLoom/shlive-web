@@ -9,7 +9,7 @@ export const AdminSidebarLinks = [
                 fontSize={20}
             />
         ),
-        href: "/dashboard",
+        href: "/admin/dashboard",
     },
     {
         label: "Users",
@@ -19,19 +19,19 @@ export const AdminSidebarLinks = [
             {
                 label: "Resellers",
                 icon: <Icon icon="fluent-mdl2:user-sync" fontSize={20} />,
-                href: "/users?type=RESELLER",
+                href: "/admin/users?type=RESELLER",
             },
             {
                 label: "Users",
                 icon: <Icon icon="ph:users" fontSize={20} />,
-                href: "/users?type=USER",
+                href: "/admin/users?type=USER",
             },
         ],
     },
     {
         label: "Rooms",
         icon: <Icon icon="cil:room" fontSize={20} />,
-        href: "/rooms",
+        href: "/admin/rooms",
     },
     {
         label: "Coin",
@@ -41,17 +41,17 @@ export const AdminSidebarLinks = [
             {
                 label: "Packages",
                 icon: <Icon icon="mingcute:coin-2-line" fontSize={20} />,
-                href: "/coins/packages",
+                href: "/admin/coins/packages",
             },
             {
                 label: "Sales",
                 icon: <Icon icon="pixelarticons:coin" fontSize={20} />,
-                href: "/coins/sales",
+                href: "/admin/coins/sales",
             },
             {
                 label: "Gifts",
                 icon: <Icon icon="mdi:gift-outline" fontSize={20} />,
-                href: "/coins/gifts/packages",
+                href: "/admin/coins/gifts/packages",
             },
         ],
     },

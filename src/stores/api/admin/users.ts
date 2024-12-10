@@ -1,13 +1,15 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { API_URL, defaultHeaders } from "../../../constants/urls";
+import { RootState } from "../..";
 
-const coinGiftPackages = createApi({
-    reducerPath: "coinGiftPackagesApi",
+const users = createApi({
+    reducerPath: "usersApi",
     baseQuery: fetchBaseQuery({
         baseUrl: API_URL,
         headers: defaultHeaders,
         prepareHeaders: (headers, { getState }) => {
-            const token = getState()?.auth?.token;
+            const state = getState() as RootState;
+            const token = state.auth.token;
             if (token) {
                 headers.set("Authorization", `Bearer ${token}`);
             }
@@ -16,53 +18,53 @@ const coinGiftPackages = createApi({
     }),
     keepUnusedDataFor: 10,
     refetchOnReconnect: true,
-    tagTypes: ["CoinGiftPackages", "CoinGiftPackage"],
+    tagTypes: ["Users", "User"],
     endpoints: (builder) => ({
-        fetchCoinGiftPackages: builder.query({
-            query: (params) => `admin/coins/gifts/packages?${params}`,
+        fetchUsers: builder.query({
+            query: (params) => `admin/users?${params}`,
             transformResponse: (response: { data: object }) => response.data,
-            providesTags: ["CoinGiftPackages"],
+            providesTags: ["Users"],
         }),
-        fetchCoinGiftPackage: builder.query({
-            query: (id) => `admin/coins/gifts/packages/${id}`,
+        fetchUser: builder.query({
+            query: (id) => `admin/users/${id}`,
             transformResponse: (response: { data: object }) => response.data,
-            providesTags: ["CoinGiftPackage"],
+            providesTags: ["User"],
         }),
-        createCoinGiftPackage: builder.mutation({
+        createUser: builder.mutation({
             query: (data) => ({
-                url: "admin/coins/gifts/packages",
+                url: "admin/users",
                 method: "POST",
                 body: JSON.stringify(data),
             }),
             transformErrorResponse: (response) => response.data,
-            invalidatesTags: ["CoinGiftPackages"],
+            invalidatesTags: ["Users"],
         }),
-        updateCoinGiftPackage: builder.mutation({
+        updateUser: builder.mutation({
             query: (data) => ({
-                url: `admin/coins/gifts/packages/${data.id}`,
+                url: `admin/users/${data.id}`,
                 method: "PATCH",
                 body: JSON.stringify(data),
             }),
             transformErrorResponse: (response) => response.data,
-            invalidatesTags: ["CoinGiftPackages"],
+            invalidatesTags: ["Users"],
         }),
-        deleteCoinGiftPackage: builder.mutation({
+        deleteUser: builder.mutation({
             query: (id) => ({
-                url: `admin/coins/gifts/packages/${id}`,
+                url: `admin/users/${id}`,
                 method: "DELETE",
             }),
             transformErrorResponse: (response) => response.data,
-            invalidatesTags: ["CoinGiftPackages"],
+            invalidatesTags: ["Users"],
         }),
     }),
 });
 
 export const {
-    useFetchCoinGiftPackagesQuery,
-    useFetchCoinGiftPackageQuery,
-    useCreateCoinGiftPackageMutation,
-    useUpdateCoinGiftPackageMutation,
-    useDeleteCoinGiftPackageMutation,
-} = coinGiftPackages;
+    useFetchUsersQuery,
+    useFetchUserQuery,
+    useCreateUserMutation,
+    useUpdateUserMutation,
+    useDeleteUserMutation,
+} = users;
 
-export default coinGiftPackages;
+export default users;

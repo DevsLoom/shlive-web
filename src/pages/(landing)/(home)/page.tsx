@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 
 const Home = () => {
     return (
-        <div className="w-full h-full bg-[#243030] p-4">
-            <div className="flex flex-col justify-center items-center h-full">
+        <div className="w-full bg-[#243030] min-h-screen">
+            <div className="flex flex-col justify-center items-center h-full min-h-screen p-4">
                 <Text
                     className="text-4xl lg:text-6xl text-white text-center font-semibold uppercase"
                     mb="lg"

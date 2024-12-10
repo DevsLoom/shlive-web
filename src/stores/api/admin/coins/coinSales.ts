@@ -1,15 +1,13 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { API_URL, defaultHeaders } from "../../constants/urls";
-import { RootState } from "..";
+import { API_URL, defaultHeaders } from "../../../../constants/urls";
 
-const users = createApi({
-    reducerPath: "usersApi",
+const coinSales = createApi({
+    reducerPath: "coinSalesApi",
     baseQuery: fetchBaseQuery({
         baseUrl: API_URL,
         headers: defaultHeaders,
         prepareHeaders: (headers, { getState }) => {
-            const state = getState() as RootState;
-            const token = state.auth.token;
+            const token = getState()?.auth?.token;
             if (token) {
                 headers.set("Authorization", `Bearer ${token}`);
             }
@@ -18,53 +16,53 @@ const users = createApi({
     }),
     keepUnusedDataFor: 10,
     refetchOnReconnect: true,
-    tagTypes: ["Users", "User"],
+    tagTypes: ["SaleCoins", "SaleCoin"],
     endpoints: (builder) => ({
-        fetchUsers: builder.query({
-            query: (params) => `admin/users?${params}`,
+        fetchSaleCoins: builder.query({
+            query: (params) => `admin/coins/sales?${params}`,
             transformResponse: (response: { data: object }) => response.data,
-            providesTags: ["Users"],
+            providesTags: ["SaleCoins"],
         }),
-        fetchUser: builder.query({
-            query: (id) => `admin/users/${id}`,
+        fetchSaleCoin: builder.query({
+            query: (id) => `admin/coins/sales/${id}`,
             transformResponse: (response: { data: object }) => response.data,
-            providesTags: ["User"],
+            providesTags: ["SaleCoin"],
         }),
-        createUser: builder.mutation({
+        createSaleCoin: builder.mutation({
             query: (data) => ({
-                url: "admin/users",
+                url: "admin/coins/sales",
                 method: "POST",
                 body: JSON.stringify(data),
             }),
             transformErrorResponse: (response) => response.data,
-            invalidatesTags: ["Users"],
+            invalidatesTags: ["SaleCoins"],
         }),
-        updateUser: builder.mutation({
+        updateSaleCoin: builder.mutation({
             query: (data) => ({
-                url: `admin/users/${data.id}`,
+                url: `admin/coins/sales/${data.id}`,
                 method: "PATCH",
                 body: JSON.stringify(data),
             }),
             transformErrorResponse: (response) => response.data,
-            invalidatesTags: ["Users"],
+            invalidatesTags: ["SaleCoins"],
         }),
-        deleteUser: builder.mutation({
+        deleteSaleCoin: builder.mutation({
             query: (id) => ({
-                url: `admin/users/${id}`,
+                url: `admin/coins/sales/${id}`,
                 method: "DELETE",
             }),
             transformErrorResponse: (response) => response.data,
-            invalidatesTags: ["Users"],
+            invalidatesTags: ["SaleCoins"],
         }),
     }),
 });
 
 export const {
-    useFetchUsersQuery,
-    useFetchUserQuery,
-    useCreateUserMutation,
-    useUpdateUserMutation,
-    useDeleteUserMutation,
-} = users;
+    useFetchSaleCoinsQuery,
+    useFetchSaleCoinQuery,
+    useCreateSaleCoinMutation,
+    useUpdateSaleCoinMutation,
+    useDeleteSaleCoinMutation,
+} = coinSales;
 
-export default users;
+export default coinSales;

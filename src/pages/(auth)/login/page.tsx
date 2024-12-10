@@ -5,13 +5,12 @@ import Cookies from "js-cookie";
 import { useState } from "react";
 import { decodeToken, isExpired } from "react-jwt";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import SecretTextField from "../../../components/UI/SecretTextField";
 import TextField from "../../../components/UI/TextField";
 import { useCreateLoginMutation } from "../../../stores/api/auth";
 import { setCurrentUser } from "../../../stores/reducers/auth";
-import { message, resCallback, validateError } from "../../../utils/helpers";
-import SecretTextField from "../../../components/UI/SecretTextField";
-import { Link } from "react-router-dom";
+import { resCallback, validateError } from "../../../utils/helpers";
 
 const Login = () => {
     const dispatch = useDispatch();
@@ -68,22 +67,19 @@ const Login = () => {
                     const isExpire = isExpired(token);
 
                     if (!isExpire) {
-                        if (decodedToken?.type === "ADMIN") {
-                            Cookies.set("authToken", token);
-                            dispatch(
-                                setCurrentUser({
-                                    token: token,
-                                    currentUser: decodedToken,
-                                    isAuthenticate: true,
-                                })
-                            );
+                        Cookies.set("authToken", token);
+                        dispatch(
+                            setCurrentUser({
+                                token: token,
+                                currentUser: decodedToken,
+                                isAuthenticate: true,
+                            })
+                        );
 
-                            navigate("/dashboard", { replace: true });
+                        if (decodedToken?.type === "ADMIN") {
+                            navigate("/admin/dashboard", { replace: true });
                         } else {
-                            message({
-                                title: `Sorry, You are not permitted to login`,
-                                icon: "error",
-                            });
+                            navigate("/rooms");
                         }
                     }
                 }
