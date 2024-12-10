@@ -3,7 +3,7 @@ import { API_URL, defaultHeaders } from "../../../constants/urls";
 import { RootState } from "../..";
 
 const users = createApi({
-    reducerPath: "usersApi",
+    reducerPath: "adminUsersApi",
     baseQuery: fetchBaseQuery({
         baseUrl: API_URL,
         headers: defaultHeaders,

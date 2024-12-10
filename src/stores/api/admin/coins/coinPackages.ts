@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { API_URL, defaultHeaders } from "../../../../constants/urls";
 
 const coinPackages = createApi({
-    reducerPath: "coinPackagesApi",
+    reducerPath: "adminCoinPackagesApi",
     baseQuery: fetchBaseQuery({
         baseUrl: API_URL,
         headers: defaultHeaders,

@@ -3,7 +3,7 @@ import { RootState } from "../..";
 import { API_URL, defaultHeaders } from "../../../constants/urls";
 
 const reports = createApi({
-    reducerPath: "reportsApi",
+    reducerPath: "adminReportsApi",
     baseQuery: fetchBaseQuery({
         baseUrl: API_URL,
         headers: defaultHeaders,

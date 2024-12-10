@@ -27,6 +27,14 @@ const auth = createApi({
             }),
             transformErrorResponse: (response) => response.data,
         }),
+        createAgoraLogin: builder.mutation({
+            query: (data) => ({
+                url: "auth/agora-token",
+                method: "POST",
+                body: JSON.stringify(data),
+            }),
+            transformErrorResponse: (response) => response.data,
+        }),
         createRegister: builder.mutation({
             query: (data) => ({
                 url: "auth/register",
@@ -86,6 +94,7 @@ export const {
     useCreateForgetPasswordMutation,
     useCreateChangePasswordMutation,
     useCreateUserUpdateMutation,
+    useCreateAgoraLoginMutation,
 } = auth;
 
 export default auth;

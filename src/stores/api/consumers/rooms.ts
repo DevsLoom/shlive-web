@@ -3,7 +3,7 @@ import { API_URL, defaultHeaders } from "../../../constants/urls";
 import { RootState } from "../..";
 
 const rooms = createApi({
-    reducerPath: "adminRoomsApi",
+    reducerPath: "roomsApi",
     baseQuery: fetchBaseQuery({
         baseUrl: API_URL,
         headers: defaultHeaders,
@@ -21,18 +21,18 @@ const rooms = createApi({
     tagTypes: ["Rooms", "Room"],
     endpoints: (builder) => ({
         fetchRooms: builder.query({
-            query: (params) => `admin/rooms?${params}`,
+            query: (params) => `rooms?${params}`,
             transformResponse: (response: { data: object }) => response.data,
             providesTags: ["Rooms"],
         }),
         fetchRoom: builder.query({
-            query: (id) => `admin/rooms/${id}`,
+            query: (id) => `rooms/${id}`,
             transformResponse: (response: { data: object }) => response.data,
             providesTags: ["Room"],
         }),
     }),
 });
 
-export const { useFetchRoomsQuery } = rooms;
+export const { useFetchRoomsQuery, useFetchRoomQuery } = rooms;
 
 export default rooms;
