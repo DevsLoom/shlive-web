@@ -79,7 +79,7 @@ const Login = () => {
                         if (decodedToken?.type === "ADMIN") {
                             navigate("/admin/dashboard", { replace: true });
                         } else {
-                            navigate("/rooms");
+                            navigate("/");
                         }
                     }
                 }

@@ -19,6 +19,7 @@ import {
     useDeleteUserMutation,
     useFetchUsersQuery,
 } from "../../../stores/api/admin/users";
+import { UserType } from "../../../types/models/users";
 import type { TableHeaderType } from "../../../types/table";
 import { alertMessage, imageUrlBuilder, message } from "../../../utils/helpers";
 
@@ -108,7 +109,7 @@ const Users = () => {
                 isError={isError}
                 error={error}
                 found={isSuccess && data?.data?.length > 0}
-                body={data?.data?.map((item: object, i: number) => (
+                body={data?.data?.map((item: UserType, i: number) => (
                     <TableTr className="bg-white" key={i}>
                         <TableCell>
                             <Flex gap="xs" align="center">
@@ -119,13 +120,13 @@ const Users = () => {
                                     )}
                                     alt="Avatar"
                                 />
-                                {item?.name}
+                                {item?.name ?? "N/A"}
                             </Flex>
                         </TableCell>
-                        <TableCell>{item?.email}</TableCell>
-                        <TableCell>{item?.phone}</TableCell>
+                        <TableCell>{item?.email ?? "N/A"}</TableCell>
+                        <TableCell>{item?.phone ?? "N/A"}</TableCell>
                         <TableCell className="uppercase">
-                            {item?.gender}
+                            {item?.gender ?? "N/A"}
                         </TableCell>
                         <TableCell>
                             <Group gap="xs" justify="center">
