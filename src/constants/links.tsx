@@ -55,6 +55,11 @@ export const AdminSidebarLinks = [
             },
         ],
     },
+    {
+        label: "Dynamic Pages",
+        icon: <Icon icon="noto-v1:page-with-curl" fontSize={20} />,
+        href: "/admin/dynamic-pages",
+    },
     // {
     //     label: "Settings",
     //     icon: <Icon icon="ant-design:setting-outlined" />,
