@@ -10,7 +10,7 @@ import {
     useFetchLatestRoomsReportsQuery,
     useFetchLatestUsersReportsQuery,
     useFetchSummaryReportsQuery,
-} from "../../../stores/api/reports";
+} from "../../../stores/api/admin/reports";
 import { TableHeaderType } from "../../../types/table";
 import { imageUrlBuilder } from "../../../utils/helpers";
 import { Images } from "../../../constants/themeData";

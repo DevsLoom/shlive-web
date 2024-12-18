@@ -1,7 +1,7 @@
 import { Button } from "@mantine/core";
 import React, { useState } from "react";
 import Validator from "Validator";
-import { useCreateCoinPackageMutation } from "../../../stores/api/coins/coinPackages";
+import { useCreateCoinPackageMutation } from "../../../stores/api/admin/coins/coinPackages";
 import { IProps } from "../../../types/global";
 import { resCallback, validateError } from "../../../utils/helpers";
 import TextField from "../../UI/TextField";

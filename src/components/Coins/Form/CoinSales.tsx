@@ -2,9 +2,9 @@ import { Button } from "@mantine/core";
 import Validator from "Validator";
 import React, { useState } from "react";
 import { CoinSaleStatuses } from "../../../constants/selects";
-import { useFetchCoinPackagesQuery } from "../../../stores/api/coins/coinPackages";
-import { useCreateSaleCoinMutation } from "../../../stores/api/coins/coinSales";
-import { useFetchUsersQuery } from "../../../stores/api/users";
+import { useFetchCoinPackagesQuery } from "../../../stores/api/admin/coins/coinPackages";
+import { useCreateSaleCoinMutation } from "../../../stores/api/admin/coins/coinSales";
+import { useFetchUsersQuery } from "../../../stores/api/admin/users";
 import { IProps } from "../../../types/global";
 import {
     resCallback,

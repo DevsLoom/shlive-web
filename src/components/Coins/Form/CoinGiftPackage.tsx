@@ -1,7 +1,7 @@
 import { Button } from "@mantine/core";
 import React, { useState } from "react";
 import Validator from "Validator";
-import { useCreateCoinGiftPackageMutation } from "../../../stores/api/coins/giftPackages";
+import { useCreateCoinGiftPackageMutation } from "../../../stores/api/admin/coins/giftPackages";
 import { IProps } from "../../../types/global";
 import { resCallback, validateError } from "../../../utils/helpers";
 import FileUploader from "../../UI/FileUploader";

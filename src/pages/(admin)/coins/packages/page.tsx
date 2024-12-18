@@ -17,7 +17,7 @@ import ListingTable, {
 import {
     useDeleteCoinPackageMutation,
     useFetchCoinPackagesQuery,
-} from "../../../../stores/api/coins/coinPackages";
+} from "../../../../stores/api/admin/coins/coinPackages";
 import { TableHeaderType } from "../../../../types/table";
 import { alertMessage, message } from "../../../../utils/helpers";
 

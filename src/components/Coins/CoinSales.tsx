@@ -3,7 +3,7 @@ import Validator from "Validator";
 import React, { useState } from "react";
 import { useFetchCoinPackagesQuery } from "../../stores/api/coins/coinPackages";
 import { useCreateSaleCoinMutation } from "../../stores/api/coins/coinSales";
-import { useFetchUsersQuery } from "../../stores/api/users";
+import { useFetchUsersQuery } from "../../stores/api/admin/users";
 import { IProps } from "../../types/global";
 import {
     resCallback,

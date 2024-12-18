@@ -1,7 +1,7 @@
 import { Button } from "@mantine/core";
 import React, { useState } from "react";
 import Validator from "Validator";
-import { useCreateUserMutation } from "../../../stores/api/users";
+import { useCreateUserMutation } from "../../../stores/api/admin/users";
 import { IProps } from "../../../types/global";
 import { resCallback, validateError } from "../../../utils/helpers";
 import SecretTextField from "../../UI/SecretTextField";

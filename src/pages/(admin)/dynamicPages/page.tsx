@@ -1,7 +1,6 @@
 import { Icon } from "@iconify/react";
 import {
     ActionIcon,
-    Avatar,
     Button,
     Flex,
     Group,
@@ -11,31 +10,26 @@ import {
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
 import ListingTable, { TableCell } from "../../../components/UI/ListingTable";
-import UserForm from "../../../components/Users/Form/UserForm";
-import { Images } from "../../../constants/themeData";
 import {
-    useDeleteUserMutation,
-    useFetchUsersQuery,
-} from "../../../stores/api/admin/users";
-import { UserType } from "../../../types/models/users";
+    useDeleteDynamicPageMutation,
+    useFetchDynamicPagesQuery,
+} from "../../../stores/api/admin/dynamicPages";
+import { DynamicPageType } from "../../../types/models/dynamicPages";
 import type { TableHeaderType } from "../../../types/table";
-import { alertMessage, imageUrlBuilder, message } from "../../../utils/helpers";
+import { alertMessage, message } from "../../../utils/helpers";
+import DynamicPageForm from "../../../components/DynamicPages/Form/DynamicPageForm";
 
-const Users = () => {
-    const [searchParams] = useSearchParams();
-    const type = searchParams.get("type");
-
+const DynamicPages = () => {
     const headers: TableHeaderType[] = [
-        { label: "Name", align: "left" },
-        { label: "Email", align: "left" },
-        { label: "Phone", align: "left" },
-        { label: "Gender", align: "left" },
+        { label: "Page", align: "left" },
+        { label: "Title", align: "left" },
+        { label: "Status", align: "left" },
         { label: "Action", align: "center" },
     ];
 
     const [opened, { open, close }] = useDisclosure(false);
+    const [selectedId, setSelectedId] = useState<string | null>(null);
 
     const [params, setParams] = useState({
         offset: 1,
@@ -45,17 +39,28 @@ const Users = () => {
     });
 
     const { data, isFetching, isSuccess, isError, error, refetch } =
-        useFetchUsersQuery(
+        useFetchDynamicPagesQuery(
             `offset=${params.offset}&limit=${params.limit}${
                 params.search ? `&search=${params.search}` : ""
-            }${params.fields ? `&fields=${params.fields}` : ""}&type=${type}`
+            }${params.fields ? `&fields=${params.fields}` : ""}`
         );
 
     const paramsChangeHandler = (field: string, value: string | unknown) => {
         setParams((prevState) => ({ ...prevState, [field]: value }));
     };
 
-    const [deleteItem] = useDeleteUserMutation();
+    const closeHandler = () => {
+        if (selectedId) {
+            setSelectedId(null);
+        }
+        close();
+    };
+    const editHandler = (id: string) => {
+        setSelectedId(id);
+        open();
+    };
+
+    const [deleteItem] = useDeleteDynamicPageMutation();
 
     const deleteHandler = (id: string) => {
         alertMessage({
@@ -74,32 +79,22 @@ const Users = () => {
         });
     };
 
-    if (type !== "RESELLER" && type !== "USER") {
-        return (
-            <div className="text-center">
-                <Title mb="lg">Please visit a right path</Title>
-                <Link to="/users?type=USER">Back to Users</Link>
-            </div>
-        );
-    }
-
     return (
         <>
             <Modal
                 opened={opened}
-                onClose={close}
-                title={`Add ${type === "RESELLER" ? "Reseller" : "User"}`}
+                onClose={closeHandler}
+                title={`${selectedId ? "Edit" : "Add"} Dynamic Page`}
                 centered
+                size="lg"
             >
-                <UserForm close={close} refetch={refetch} type={type} />
+                <DynamicPageForm close={closeHandler} selectedId={selectedId} />
             </Modal>
 
             <Flex align="center" justify="space-between" gap="xs">
-                <Title size="sm">
-                    {type === "RESELLER" ? "Resellers" : "Users"}
-                </Title>
+                <Title size="sm">Dynamic Pages</Title>
                 <Button size="sm" onClick={open}>
-                    Add {type === "RESELLER" ? "Reseller" : "User"}
+                    Add Dynamic Page
                 </Button>
             </Flex>
 
@@ -109,31 +104,23 @@ const Users = () => {
                 isError={isError}
                 error={error}
                 found={isSuccess && data?.data?.length > 0}
-                body={data?.data?.map((item: UserType, i: number) => (
+                body={data?.data?.map((item: DynamicPageType, i: number) => (
                     <TableTr className="bg-white" key={i}>
-                        <TableCell>
-                            <Flex gap="xs" align="center">
-                                <Avatar
-                                    src={imageUrlBuilder(
-                                        item?.avatar,
-                                        Images.DefaultImage
-                                    )}
-                                    alt="Avatar"
-                                />
-                                {item?.name ?? "N/A"}
-                            </Flex>
-                        </TableCell>
-                        <TableCell>{item?.email ?? "N/A"}</TableCell>
-                        <TableCell>{item?.phone ?? "N/A"}</TableCell>
+                        <TableCell>{item?.page ?? "N/A"}</TableCell>
+                        <TableCell>{item?.title ?? "N/A"}</TableCell>
                         <TableCell className="uppercase">
-                            {item?.gender ?? "N/A"}
+                            {item?.status ?? "N/A"}
                         </TableCell>
                         <TableCell>
                             <Group gap="xs" justify="center">
                                 <ActionIcon color="blue" variant="outline">
                                     <Icon icon="hugeicons:view" />
                                 </ActionIcon>
-                                <ActionIcon color="orange" variant="outline">
+                                <ActionIcon
+                                    color="orange"
+                                    variant="outline"
+                                    onClick={() => editHandler(item?.id)}
+                                >
                                     <Icon icon="ph:pencil-duotone" />
                                 </ActionIcon>
                                 <ActionIcon
@@ -156,4 +143,4 @@ const Users = () => {
     );
 };
 
-export default Users;
+export default DynamicPages;

@@ -1,8 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { API_URL, defaultHeaders } from "../../../constants/urls";
+import { API_URL, defaultHeaders } from "../../../../constants/urls";
 
-const coinGiftPackages = createApi({
-    reducerPath: "coinGiftPackagesApi",
+const coinPackages = createApi({
+    reducerPath: "adminCoinPackagesApi",
     baseQuery: fetchBaseQuery({
         baseUrl: API_URL,
         headers: defaultHeaders,
@@ -16,53 +16,53 @@ const coinGiftPackages = createApi({
     }),
     keepUnusedDataFor: 10,
     refetchOnReconnect: true,
-    tagTypes: ["CoinGiftPackages", "CoinGiftPackage"],
+    tagTypes: ["CoinPackages", "CoinPackage"],
     endpoints: (builder) => ({
-        fetchCoinGiftPackages: builder.query({
-            query: (params) => `admin/coins/gifts/packages?${params}`,
+        fetchCoinPackages: builder.query({
+            query: (params) => `admin/coins/packages?${params}`,
             transformResponse: (response: { data: object }) => response.data,
-            providesTags: ["CoinGiftPackages"],
+            providesTags: ["CoinPackages"],
         }),
-        fetchCoinGiftPackage: builder.query({
-            query: (id) => `admin/coins/gifts/packages/${id}`,
+        fetchCoinPackage: builder.query({
+            query: (id) => `admin/coins/packages/${id}`,
             transformResponse: (response: { data: object }) => response.data,
-            providesTags: ["CoinGiftPackage"],
+            providesTags: ["CoinPackage"],
         }),
-        createCoinGiftPackage: builder.mutation({
+        createCoinPackage: builder.mutation({
             query: (data) => ({
-                url: "admin/coins/gifts/packages",
+                url: "admin/coins/packages",
                 method: "POST",
                 body: JSON.stringify(data),
             }),
             transformErrorResponse: (response) => response.data,
-            invalidatesTags: ["CoinGiftPackages"],
+            invalidatesTags: ["CoinPackages"],
         }),
-        updateCoinGiftPackage: builder.mutation({
+        updateCoinPackage: builder.mutation({
             query: (data) => ({
-                url: `admin/coins/gifts/packages/${data.id}`,
+                url: `admin/coins/packages/${data.id}`,
                 method: "PATCH",
                 body: JSON.stringify(data),
             }),
             transformErrorResponse: (response) => response.data,
-            invalidatesTags: ["CoinGiftPackages"],
+            invalidatesTags: ["CoinPackages"],
         }),
-        deleteCoinGiftPackage: builder.mutation({
+        deleteCoinPackage: builder.mutation({
             query: (id) => ({
-                url: `admin/coins/gifts/packages/${id}`,
+                url: `admin/coins/packages/${id}`,
                 method: "DELETE",
             }),
             transformErrorResponse: (response) => response.data,
-            invalidatesTags: ["CoinGiftPackages"],
+            invalidatesTags: ["CoinPackages"],
         }),
     }),
 });
 
 export const {
-    useFetchCoinGiftPackagesQuery,
-    useFetchCoinGiftPackageQuery,
-    useCreateCoinGiftPackageMutation,
-    useUpdateCoinGiftPackageMutation,
-    useDeleteCoinGiftPackageMutation,
-} = coinGiftPackages;
+    useFetchCoinPackagesQuery,
+    useFetchCoinPackageQuery,
+    useCreateCoinPackageMutation,
+    useUpdateCoinPackageMutation,
+    useDeleteCoinPackageMutation,
+} = coinPackages;
 
-export default coinGiftPackages;
+export default coinPackages;

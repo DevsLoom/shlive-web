@@ -1,4 +1,4 @@
-import Swal, { SweetAlertIcon } from "sweetalert2";
+import Swal, { SweetAlertIcon, SweetAlertOptions } from "sweetalert2";
 
 export const validateError = (data: { [key: string]: string[] | string }) => {
     const validate: { [key: string]: { text: string; show: boolean } } = {};
@@ -12,7 +12,7 @@ export const validateError = (data: { [key: string]: string[] | string }) => {
     return validate;
 };
 
-export const message = (props: object) => Swal.fire(props);
+export const message = (props: SweetAlertOptions) => Swal.fire(props);
 
 export const alertMessage = ({
     cb = () => {},
@@ -118,4 +118,22 @@ export const imageUrlBuilder = (
         return value;
     }
     return defaultImage;
+};
+
+export const setValidateError = (data: {
+    [key: string]: string | string[];
+}) => {
+    const validate: { [key: string]: string | any } = {};
+    Object.keys(data).forEach((key) => {
+        if (Array.isArray(data[key])) {
+            validate[key] = data[key][0];
+        } else {
+            validate[key] = data[key];
+        }
+    });
+    return validate;
+};
+
+export const isError = (value: string | any) => {
+    return value ? true : false;
 };

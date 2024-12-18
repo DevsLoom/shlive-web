@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { API_URL, defaultHeaders } from "../../constants/urls";
+import { API_URL, defaultHeaders } from "../../../constants/urls";
+import { RootState } from "../..";
 
 const rooms = createApi({
     reducerPath: "roomsApi",
@@ -7,7 +8,8 @@ const rooms = createApi({
         baseUrl: API_URL,
         headers: defaultHeaders,
         prepareHeaders: (headers, { getState }) => {
-            const token = getState()?.auth?.token;
+            const state = getState() as RootState;
+            const token = state.auth.token;
             if (token) {
                 headers.set("Authorization", `Bearer ${token}`);
             }
@@ -19,18 +21,18 @@ const rooms = createApi({
     tagTypes: ["Rooms", "Room"],
     endpoints: (builder) => ({
         fetchRooms: builder.query({
-            query: (params) => `admin/rooms?${params}`,
+            query: (params) => `rooms?${params}`,
             transformResponse: (response: { data: object }) => response.data,
             providesTags: ["Rooms"],
         }),
         fetchRoom: builder.query({
-            query: (id) => `admin/rooms/${id}`,
+            query: (id) => `rooms/${id}`,
             transformResponse: (response: { data: object }) => response.data,
             providesTags: ["Room"],
         }),
     }),
 });
 
-export const { useFetchRoomsQuery } = rooms;
+export const { useFetchRoomsQuery, useFetchRoomQuery } = rooms;
 
 export default rooms;

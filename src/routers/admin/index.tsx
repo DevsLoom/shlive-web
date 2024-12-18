@@ -3,12 +3,13 @@ import CoinGiftPackages from "../../pages/(admin)/coins/gifts/packages/page";
 import CoinPackages from "../../pages/(admin)/coins/packages/page";
 import SalesCoin from "../../pages/(admin)/coins/sales/page";
 import Dashboard from "../../pages/(admin)/dashboard/page";
+import DynamicPages from "../../pages/(admin)/dynamicPages/page";
 import Rooms from "../../pages/(admin)/rooms/page";
 import Users from "../../pages/(admin)/users/page";
 
 const adminRouters = [
     {
-        path: "",
+        path: "admin",
         element: <AdminLayout />,
         children: [
             { path: "dashboard", element: <Dashboard /> },
@@ -27,6 +28,7 @@ const adminRouters = [
                     },
                 ],
             },
+            { path: "dynamic-pages", element: <DynamicPages /> },
         ],
     },
 ];

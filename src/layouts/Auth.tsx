@@ -5,13 +5,19 @@ import { RootState } from "../stores";
 
 const AuthLayout: React.FC = () => {
     const navigate = useNavigate();
-    const { isAuthenticate } = useSelector((state: RootState) => state.auth);
+    const { isAuthenticate, currentUser } = useSelector(
+        (state: RootState) => state.auth
+    );
 
     useEffect(() => {
         if (isAuthenticate) {
-            navigate("/dashboard", { replace: true });
+            if (currentUser && currentUser?.type === "ADMIN") {
+                navigate("/admin/dashboard", { replace: true });
+            } else if (currentUser && currentUser?.type !== "ADMIN") {
+                navigate("/rooms", { replace: true });
+            }
         }
-    }, [isAuthenticate, navigate]);
+    }, [currentUser, isAuthenticate, navigate]);
 
     return (
         <div className="p-4 bg-blue-100 h-screen flex flex-col  md:justify-center items-center overflow-y-auto">

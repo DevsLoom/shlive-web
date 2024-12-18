@@ -3,18 +3,19 @@ import { ActionIcon, Avatar, Flex, Group, TableTr, Title } from "@mantine/core";
 import moment from "moment";
 import { useState } from "react";
 import ListingTable, { TableCell } from "../../../components/UI/ListingTable";
-import { useFetchRoomsQuery } from "../../../stores/api/rooms";
+import { Images } from "../../../constants/themeData";
+import { useFetchRoomsQuery } from "../../../stores/api/admin/rooms";
+import { RoomType } from "../../../types/models/rooms";
 import { TableHeaderType } from "../../../types/table";
 import { imageUrlBuilder } from "../../../utils/helpers";
-import { Images } from "../../../constants/themeData";
 
 const Rooms = () => {
     const headers: TableHeaderType[] = [
         { label: "Host", align: "left" },
         { label: "Type", align: "left" },
-        { label: "Status", align: "left" },
         { label: "Start At", align: "left" },
         { label: "End At", align: "left" },
+        { label: "Status", align: "left" },
         { label: "Action", align: "center" },
     ];
 
@@ -47,7 +48,7 @@ const Rooms = () => {
                 isError={isError}
                 error={error}
                 found={isSuccess && data?.data?.length > 0}
-                body={data?.data?.map((item, i) => (
+                body={data?.data?.map((item: RoomType, i: number) => (
                     <TableTr className="bg-white" key={i}>
                         <TableCell>
                             <Flex gap="xs" align="center">
@@ -58,12 +59,11 @@ const Rooms = () => {
                                     )}
                                     alt="Avatar"
                                 />
-                                {item?.user?.name}
+                                {item?.user?.name ?? "N/A"}
                             </Flex>
                         </TableCell>
-                        <TableCell>{item?.type}</TableCell>
-                        <TableCell className="capitalize">
-                            {item.status}
+                        <TableCell className="uppercase">
+                            {item?.type ?? "N/A"}
                         </TableCell>
                         <TableCell>
                             {item.startAt
@@ -78,6 +78,9 @@ const Rooms = () => {
                                       "Do MMM, YYYY hh:mm A"
                                   )
                                 : ""}
+                        </TableCell>
+                        <TableCell className="uppercase">
+                            {item?.status ?? "N/A"}
                         </TableCell>
                         <TableCell>
                             <Group gap="xs" justify="center">
